@@ -42,11 +42,15 @@ class ArmaSonora(PrototypeInterface):
             self.gpio = Gpio()
 
     def setup(self):
-        ## pick what to subscribe to
+        ## subscribe to all receivers
         self.subscribeToAll()
-        ## or....
+        """
+        ## or pick which ones
         for k in self.allReceivers.keys():
             self.subscribeTo(k)
+        ## or subscribe to osc
+            self.subscribeTo('osc')
+        """
         ## some state variables
         self.currentState = ArmaSonora.STATE_WAIT
         self.lastOnTime = time.time()
