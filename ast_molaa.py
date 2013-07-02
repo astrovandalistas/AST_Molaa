@@ -63,6 +63,7 @@ class ArmaSonora(PrototypeInterface):
             (not self.messageQ.empty())):
             (locale,type,txt) = self.messageQ.get()
             ## turn gpio(s) on
+            print "you make me HIGH"
             for m in ArmaSonora.MOTOR_PINS:
                 self.gpio.digitalWrite(m,self.gpio.HIGH)
             self.currentState = ArmaSonora.STATE_BANG
@@ -70,6 +71,7 @@ class ArmaSonora(PrototypeInterface):
         elif ((self.currentState == ArmaSonora.STATE_BANG) and
               (time.time()-self.lastOnTime > ArmaSonora.MOTOR_ON_TIME)):
             ## turn off gpio(s)
+            print "you make me LOW"
             for m in ArmaSonora.MOTOR_PINS:
                 self.gpio.digitalWrite(m,self.gpio.LOW)
             self.currentState = ArmaSonora.STATE_WAIT
