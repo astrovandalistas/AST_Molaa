@@ -16,7 +16,7 @@ class ArmaSonora(PrototypeInterface):
         all prototypes must define setup() and loop() functions
         self.messageQ will have all messages coming in from LocalNet """
     (STATE_WAIT, STATE_BANG) = range(2)
-    MOTOR_ON_TIME = 20
+    MOTOR_ON_TIME = 8
     MOTOR_OFF_TIME = 5
     MOTOR_PINS = [22,23,24]
 
