@@ -18,7 +18,7 @@ class ArmaSonora(PrototypeInterface):
     (STATE_WAIT, STATE_BANG) = range(2)
     MOTOR_ON_TIME = 5
     MOTOR_OFF_TIME = 5
-    MOTOR_PINS = [22,23,24]
+    MOTOR_PINS = [17,27,22]
 
     def _setupGpio(self):
         ## setup GPIO object (real or fake)
