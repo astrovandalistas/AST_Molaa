@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, time, subprocess, getopt
+import sys, time, getopt
 sys.path.append("../LocalNet")
 from interfaces import PrototypeInterface, runPrototype
 
@@ -25,7 +25,6 @@ class ArmaSonora(PrototypeInterface):
         if (HAS_WIRINGPI):
             self.gpio = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_SYS)
             for m in ArmaSonora.MOTOR_PINS:
-                subprocess.call("gpio export "+str(m)+" out 2> /dev/null", shell=True)
                 self.gpio.pinMode(m,self.gpio.OUTPUT)
                 self.gpio.digitalWrite(m,self.gpio.LOW)
         else:
