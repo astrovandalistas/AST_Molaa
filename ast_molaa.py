@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, time, subprocess
+import sys, time, subprocess, getopt
 sys.path.append("../LocalNet")
 from interfaces import PrototypeInterface, runPrototype
 
@@ -76,6 +76,16 @@ class ArmaSonora(PrototypeInterface):
             self.lastOffTime = time.time()
 
 if __name__=="__main__":
-    ## TODO: get ip and ports from command line
-    mAST = ArmaSonora(8989,"127.0.0.1",8888)
+    (inPort, localNetAddress, localNetPort) = (8989, "127.0.0.1", 8888)
+    opts, args = getopt.getopt(sys.argv[1:],"i:n:o:",["inport=","localnet=","localnetport="])
+    for opt, arg in opts:
+        if(opt in ("--inport","-i")):
+            inPort = int(arg)
+        elif(opt in ("--localnet","-n")):
+            localNetAddress = str(arg)
+        elif(opt in ("--localnetport","-o")):
+            localNetPort = int(arg)
+
+    print "osc port %s. connecting to %s:%s" % (inPort, localNetAddress, localNetPort)
+    mAST = ArmaSonora(inPort,localNetAddress,localNetPort)
     runPrototype(mAST)
