@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, time, subprocess
+import sys, time, getopt
 sys.path.append("../LocalNet")
 from interfaces import PrototypeInterface, runPrototype
 
@@ -25,7 +25,6 @@ class ArmaSonora(PrototypeInterface):
         if (HAS_WIRINGPI):
             self.gpio = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_SYS)
             for m in ArmaSonora.MOTOR_PINS:
-                subprocess.call("gpio export "+str(m)+" out 2> /dev/null", shell=True)
                 self.gpio.pinMode(m,self.gpio.OUTPUT)
                 self.gpio.digitalWrite(m,self.gpio.LOW)
         else:
@@ -76,6 +75,16 @@ class ArmaSonora(PrototypeInterface):
             self.lastOffTime = time.time()
 
 if __name__=="__main__":
-    ## TODO: get ip and ports from command line
-    mAST = ArmaSonora(8989,"127.0.0.1",8888)
+    (inPort, localNetAddress, localNetPort) = (8989, "127.0.0.1", 8888)
+    opts, args = getopt.getopt(sys.argv[1:],"i:n:o:",["inport=","localnet=","localnetport="])
+    for opt, arg in opts:
+        if(opt in ("--inport","-i")):
+            inPort = int(arg)
+        elif(opt in ("--localnet","-n")):
+            localNetAddress = str(arg)
+        elif(opt in ("--localnetport","-o")):
+            localNetPort = int(arg)
+
+    print "osc port %s. connecting to %s:%s" % (inPort, localNetAddress, localNetPort)
+    mAST = ArmaSonora(inPort,localNetAddress,localNetPort)
     runPrototype(mAST)
