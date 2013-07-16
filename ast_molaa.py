@@ -85,6 +85,5 @@ if __name__=="__main__":
         elif(opt in ("--localnetport","-o")):
             localNetPort = int(arg)
 
-    print "osc port %s. connecting to %s:%s" % (inPort, localNetAddress, localNetPort)
     mAST = ArmaSonora(inPort,localNetAddress,localNetPort)
     runPrototype(mAST)
