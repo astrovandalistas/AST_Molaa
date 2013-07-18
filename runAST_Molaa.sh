@@ -10,4 +10,4 @@ do
 done
 
 # start AST
-python ast_molaa.py --inport 8989 --localnetport 8900 --localnet 10.0.0.3 --inip 10.0.0.3
+python ast_molaa.py --inport=8989 --localnetport=8900 --localnet=aeffect07.local --inip=aeffect01.local
